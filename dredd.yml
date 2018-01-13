@@ -1,5 +1,5 @@
 dry-run: null
-hookfiles: ./hooks
+hookfiles: hooks
 language: go
 sandbox: false
 server: ./simple-go-server

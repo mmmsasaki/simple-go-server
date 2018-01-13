@@ -11,7 +11,9 @@ func main() {
 	h := hooks.NewHooks()
 	server := hooks.NewServer(hooks.NewHooksRunner(h))
 	h.Before("/message > GET", func(t *trans.Transaction) {
+		fmt.Println("-------------------")
 		fmt.Println("before modification")
+		fmt.Println("-------------------")
 	})
 	server.Serve()
 	defer server.Listener.Close()

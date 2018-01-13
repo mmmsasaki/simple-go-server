@@ -2,16 +2,28 @@ version: 2
 jobs:
   build:
     docker:
-      - image: vihervas/circleci-golang-node:1.9.2-6.11.2
+      # - image: vihervas/circleci-golang-node:1.9.2-6.11.2
+      - image: circleci/golang:latest
     working_directory: /go/src/github.com/mmmsasaki/simple-go-server
     steps:
       - checkout
       - run: go version     # 1.9.2
+      - run: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+      - run: sudo apt-get install -y nodejs
       - run: node --version # v6.11.2
       - run: npm --version  # 3.10.10
-      - run: sudo npm install -g dredd
+      - restore_cache:
+          name: restore node_modules cache
+          key: dredd
+      - run:
+          name: npm install dredd
+          command: npm install dredd
+      - save_cache:
+          name: save node_modules cache
+          key: dredd
+          paths:
+              - node_modules
       - run: go build
       - run: go get github.com/snikch/goodman/cmd/goodman
       - run: go build -o hooks ./test/hooks.go
-      - run: dredd &
-      - run: dredd
+      - run: ./node_modules/dredd/bin/dredd
