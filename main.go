@@ -24,5 +24,5 @@ func port() string {
 
 func index(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Hello World!!")
+	fmt.Fprintln(w, "Hello World!!")
 }

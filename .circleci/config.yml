@@ -13,4 +13,5 @@ jobs:
       - run: go build
       - run: go get github.com/snikch/goodman/cmd/goodman
       - run: go build -o hooks ./test/hooks.go
+      - run: dredd &
       - run: dredd
