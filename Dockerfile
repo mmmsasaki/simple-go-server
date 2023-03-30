@@ -4,7 +4,7 @@ WORKDIR /app
 ADD main.go /app/
 RUN go build -o simple-go-server
 
-FROM alpine
+FROM alpine:3.17.3
 
 COPY --from=build /app/simple-go-server /app/simple-go-server
 ENV PORT 8080
